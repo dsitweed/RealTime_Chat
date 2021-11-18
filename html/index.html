@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/icon.png">
+    <title>Realtime chat project</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-box">
+            <div class="head">
+                <img src="../img/icon.png" alt="logo">
+                <span>Realtime chat</span>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Room name</p>
+                    <p>Users</p>
+                </div>
+                <div class="show-container col-md-9">
+                    <div class="input-group mb-3">
+                        <div class="message" id="message"></div>
+                        <div class="input-group-append">
+                            <input type="text" class="form-control" id="input" style="max-width:350px;">
+                            <button class="btn btn-success" type="button" id="send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        const name = "Ky";
+        var message = document.getElementById("message");
+        var input = document.getElementById("input");
+        var send = document.getElementById("send");
+
+        send.addEventListener('click', (e) => {
+            e.preventDefault();//Xoa het cac su kien mac dinh
+            const sendMessage = input.value;
+            if (input.value){
+                socket.emit('chat message', {
+                    name : name,
+                    sendMessage: sendMessage,
+                });
+                input.value = "";
+            }
+        });
+
+        socket.on('chat message', (msg) => {
+            var item = document.createElement('div');
+            item.classList.add("message");
+            item.textContent = `${msg.name}: ${msg.sendMessage}`;
+            message.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>

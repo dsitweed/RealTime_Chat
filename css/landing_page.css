@@ -1,0 +1,33 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    size: 16px;
+}
+
+header{
+    background-color: rgba(52, 162, 116,0.9);
+}
+
+.image-container{
+    margin-bottom: 10px;
+}
+
+.image-container span{
+    font-weight: bolder;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+form{
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 15px;
+    background-color: #eee59e;
+}
+
+.select-container select{
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+}
